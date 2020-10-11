@@ -22,7 +22,7 @@ namespace LogFileParser.Common
 
         public string UriQuery;
 
-        public string StatusCode;
+        public ushort StatusCode;
 
         public string UserAgent;
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using LogFileParser.Common;
 using LogFileParser.Core;
 
@@ -12,7 +14,7 @@ namespace LogFileParser.ConsoleUI
         {
             FileParser<W3C> fileParser = new FileParser<W3C>();
             var mycollection = fileParser.GetMappedCollectionAsync().Result;
-            Show(mycollection);
+            ShowAllValues(mycollection);
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
         }
@@ -33,13 +35,15 @@ namespace LogFileParser.ConsoleUI
             }
         }
 
-        private static void Show(ConcurrentBag<W3C> mycollection)
+        private static void ShowAllValues(ConcurrentBag<W3C> mycollection)
         {
             foreach (var item in mycollection)
             {
-                Console.WriteLine($"The server IP is {item.ClientIpAddress}," +
-                                  $"Verb request is { item.Method}, " +
-                                  $"Http Status Code is {item.StatusCode}");
+                Console.WriteLine($"Printing for {item.ServerIpAddress}");
+                foreach (var p in item.GetType().GetFields())
+                {
+                    Console.WriteLine(p.Name + " : " + p.GetValue(item));
+                }
             }
         }
     }

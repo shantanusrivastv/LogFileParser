@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogFileParser.Core
+namespace LogFileParser.Models
 {
     public class Class1
     {

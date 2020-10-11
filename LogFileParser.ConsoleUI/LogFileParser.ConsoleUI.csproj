@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LogFileParser.Common\LogFileParser.Common.csproj" />
+    <ProjectReference Include="..\LogFileParser.Core\LogFileParser.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -21,23 +21,20 @@ namespace LogFileParser.Core
 
         public async Task<ConcurrentBag<T>> GetMappedCollectionAsync()
         {
-            var mappedCollection = new ConcurrentBag<T>();
-            var test = await File.ReadAllLinesAsync(path);
-            IList<T> w3CEvents = new List<T>();
-            Parallel.ForEach(test, (item) =>
+            var threadSafeCollection = new ConcurrentBag<T>();
+            var allLines = await File.ReadAllLinesAsync(path);
+            IList<T> parsedList = new List<T>();
+            Parallel.ForEach(allLines, (line) =>
             {
-                if (!item.StartsWith("#"))
+                if (!line.StartsWith("#"))
                 {
-                    var props = item.Split();
-                    var row = parser.Parse<T>(props);
-                    if (row != null)
-                    {
-                        mappedCollection.Add(row);
-                    }
+                    var props = line.Split();
+                    var parsedLines = parser.TryParse<T>(props);
+                    threadSafeCollection.Add(parsedLines);
                 }
             });
 
-            return mappedCollection;
+            return threadSafeCollection;
         }
     }
 }

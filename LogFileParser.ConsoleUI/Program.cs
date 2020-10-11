@@ -14,14 +14,14 @@ namespace LogFileParser.ConsoleUI
         {
             FileParser<W3C> fileParser = new FileParser<W3C>();
             var mycollection = fileParser.GetMappedCollectionAsync().Result;
-            ShowAllValues(mycollection);
+            ShowWithGrouping(mycollection);
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
         }
 
         private static void ShowWithGrouping(ConcurrentBag<W3C> mycollection)
         {
-            var groupedCollection = mycollection.GroupBy(x => x.ServerIpAddress)
+            var groupedCollection = mycollection.GroupBy(x => x.UserAgent)
                                    .Select(g => new
                                    {
                                        key = g.Key,

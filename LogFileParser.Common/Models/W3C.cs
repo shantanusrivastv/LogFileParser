@@ -4,9 +4,9 @@ namespace LogFileParser.Common
 {
     public class W3C
     {
-        public DateTimeOffset Date;
+        public DateTime Date;
 
-        public DateTimeOffset Time;
+        public TimeSpan Time;
 
         public string ClientIpAddress;
 
@@ -14,7 +14,7 @@ namespace LogFileParser.Common
 
         public string ServerIpAddress;
 
-        public string ServerPort;
+        public ushort ServerPort;
 
         public string Method;
 
@@ -23,6 +23,8 @@ namespace LogFileParser.Common
         public string UriQuery;
 
         public ushort StatusCode;
+
+        public ushort TimeTaken;
 
         public string UserAgent;
     }

@@ -47,12 +47,12 @@ namespace LogFileParser.Core
                         {
                             TypeFields[i].SetValue(instance, args[1]);
                         }
-                        //For non successfulParse we are leaving it to default value
+                        //For non successful Parse we are leaving it to default value
                     }
                     else
                     {
-                        //TypeFields[i].SetValue(instance, Convert.ChangeType(props[i], targetType));//For future
-                        TypeFields[i].SetValue(instance, props[i]);
+                        //TypeFields[i].SetValue(instance, Convert.ChangeType(props[i], targetType));//For future reference
+                        TypeFields[i].SetValue(instance, props[i]); //For our cuurent data type it will be string
                     }
                 }
             }

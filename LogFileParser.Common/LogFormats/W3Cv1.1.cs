@@ -1,20 +1,14 @@
 ﻿using System;
 
-namespace LogFileParser.Common
+namespace LogFileParser.Common.Models
 {
-    public class W3C
+    public class W3Cv1dot1
     {
         public DateTime Date;
 
         public TimeSpan Time;
 
-        public string ClientIpAddress;
-
-        public string UserName;
-
         public string ServerIpAddress;
-
-        public ushort ServerPort;
 
         public string Method;
 
@@ -22,10 +16,16 @@ namespace LogFileParser.Common
 
         public string UriQuery;
 
+        public ushort ServerPort;
+
+        public string UserName;
+
+        public string ClientIpAddress;
+
+        public string UserAgent;
+
         public ushort StatusCode;
 
         public ushort TimeTaken;
-
-        public string UserAgent;
     }
 }

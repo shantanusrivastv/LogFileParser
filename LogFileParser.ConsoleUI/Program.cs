@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using LogFileParser.Common;
+using LogFileParser.Common.LogFormats;
 using LogFileParser.Core;
 
 namespace LogFileParser.ConsoleUI
@@ -13,7 +12,8 @@ namespace LogFileParser.ConsoleUI
         private static void Main(string[] args)
         {
             FileParser<W3C> fileParser = new FileParser<W3C>();
-            var mycollection = fileParser.GetMappedCollectionAsync().Result;
+            var mycollection = fileParser.GetAllLogsAsync().Result;
+            ShowAllValues(mycollection);
             ShowWithGrouping(mycollection);
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
@@ -21,7 +21,7 @@ namespace LogFileParser.ConsoleUI
 
         private static void ShowWithGrouping(ConcurrentBag<W3C> mycollection)
         {
-            var groupedCollection = mycollection.GroupBy(x => x.UserAgent)
+            var groupedCollection = mycollection.GroupBy(x => x.ClientIpAddress)
                                    .Select(g => new
                                    {
                                        key = g.Key,
@@ -31,7 +31,7 @@ namespace LogFileParser.ConsoleUI
 
             foreach (var item in groupedCollection)
             {
-                Console.WriteLine($"The server IP is {item.key}, no of hits is {item.count}  ");
+                Console.WriteLine($"The server IP is {item.key}, no of hits are {item.count}  ");
             }
         }
 
@@ -42,7 +42,8 @@ namespace LogFileParser.ConsoleUI
                 Console.WriteLine($"Printing for {item.ServerIpAddress}");
                 foreach (var p in item.GetType().GetFields())
                 {
-                    Console.WriteLine(p.Name + " : " + p.GetValue(item));
+                    Console.Write(p.Name + " : " + p.GetValue(item));
+                    Console.WriteLine();
                 }
             }
         }

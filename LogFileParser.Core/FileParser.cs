@@ -9,7 +9,6 @@ namespace LogFileParser.Core
 {
     public class FileParser<LogFileFormat> where LogFileFormat : class, new()
     {
-        private string path = @"D:\VS\LogFileParser\Sample-logs\W3C.txt";
         private Parser parser;
 
         public FileParser()
@@ -17,7 +16,7 @@ namespace LogFileParser.Core
             parser = new Parser();
         }
 
-        public async Task<ConcurrentBag<LogFileFormat>> GetAllLogsAsync()
+        public async Task<ConcurrentBag<LogFileFormat>> GetAllLogsAsync(string path)
         {
             var threadSafeCollection = new ConcurrentBag<LogFileFormat>();
             var allLogs = await File.ReadAllLinesAsync(path);
@@ -38,11 +37,11 @@ namespace LogFileParser.Core
         {
             switch (typeof(LogFileFormat))
             {
-                case Type format when (format == typeof(W3C) || format == typeof(W3Cv1dot1)):
+                case Type format when (format == typeof(W3CLogFormat) || format == typeof(W3Cv1LogFormat)):
                     return log.Split();
 
-                case Type format when format == typeof(IIS):
-                    return log.Split(",").SkipLast(1).ToArray(); //For IIS Log last element ends with comma
+                case Type format when format == typeof(IISLogFormat):
+                    return log.Split(",").SkipLast(1).ToArray(); //For IISLogFormat Log last element ends with comma
 
                 default:
                     throw new ArgumentException("Unsupported Type");

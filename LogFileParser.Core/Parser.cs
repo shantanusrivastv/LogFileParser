@@ -7,41 +7,41 @@ namespace LogFileParser.Core
     {
         //private static FieldInfo[] TypeFields;
 
-        public T Parse<T>(params string[] props) where T : class, new()
+        public T Parse<T>(params string[] logFields) where T : class, new()
         {
             var instance = new T();
-            var TypeFields = typeof(T).GetFields();
+            var TypeFields = typeof(T).GetFields(); //todo throw exception if both does not match
 
-            for (int i = 0; i < props.Length; i++)
+            for (int i = 0; i < logFields.Length; i++)
             {
                 var converter = TypeDescriptor.GetConverter(TypeFields[i].FieldType);
-                bool canConvert = converter.CanConvertFrom(props[i].GetType());
+                bool canConvert = converter.CanConvertFrom(logFields[i].GetType());
 
                 if (canConvert)
                 {
-                    var convertedValue = converter.ConvertFrom(props[i]);
+                    var convertedValue = converter.ConvertFrom(logFields[i]);
                     TypeFields[i].SetValue(instance, convertedValue);
                 }
             }
             return instance;
         }
 
-        public T TryParse<T>(params string[] props) where T : class, new()
+        public T TryParse<T>(params string[] logFields) where T : class, new()
         {
             var instance = new T();
             var TypeFields = typeof(T).GetFields();
 
-            for (int i = 0; i < props.Length; i++)
+            for (int i = 0; i < logFields.Length; i++)
             {
-                if (!string.IsNullOrEmpty(props[i]) && !(props[i] == "-")) // - means no value in W3C standard change is other have similar
-                                                                           // to make it centralised class level
+                if (!string.IsNullOrEmpty(logFields[i]) && !(logFields[i] == "-")) // - means no value in W3CLogFormat standard change is other have similar
+                                                                                   // to make it centralised class level
                 {
                     var targetType = TypeFields[i].FieldType;
                     Type[] argTypes = { typeof(string), targetType.MakeByRefType() };
                     var tryParseMethodInfo = targetType.GetMethod("TryParse", argTypes);
                     if (tryParseMethodInfo != null)
                     {
-                        object[] args = { props[i], null };
+                        object[] args = { logFields[i], null };
                         var successfulParse = (bool)tryParseMethodInfo.Invoke(null, args);
                         if (successfulParse)
                         {
@@ -51,8 +51,8 @@ namespace LogFileParser.Core
                     }
                     else
                     {
-                        //TypeFields[i].SetValue(instance, Convert.ChangeType(props[i], targetType));//For future reference
-                        TypeFields[i].SetValue(instance, props[i]); //For our cuurent data type it will be string
+                        //TypeFields[i].SetValue(instance, Convert.ChangeType(logFields[i], targetType));//For future reference
+                        TypeFields[i].SetValue(instance, logFields[i]); //For our cuurent data type it will be string
                     }
                 }
             }

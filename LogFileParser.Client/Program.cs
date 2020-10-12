@@ -11,15 +11,16 @@ namespace LogFileParser.Client
     {
         private static void Main(string[] args)
         {
-            var fileParser = new FileParser<W3C>();
-            var logResults = fileParser.GetAllLogsAsync().Result;
+            string testPath = @"D:\VS\LogFileParser\Sample-logs\W3CLogFormat.txt";
+            var fileParser = new FileParser<W3CLogFormat>();
+            var logResults = fileParser.GetAllLogsAsync(testPath).Result;
             //ShowAllValues(logResults);
             //ShowWithGrouping(logResults);
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
         }
 
-        private static void ShowWithGrouping(ConcurrentBag<W3C> mycollection)
+        private static void ShowWithGrouping(ConcurrentBag<W3CLogFormat> mycollection)
         {
             var groupedCollection = mycollection.GroupBy(x => x.ClientIpAddress)
                                    .Select(g => new
@@ -35,7 +36,7 @@ namespace LogFileParser.Client
             }
         }
 
-        private static void ShowAllValues(ConcurrentBag<W3C> mycollection)
+        private static void ShowAllValues(ConcurrentBag<W3CLogFormat> mycollection)
         {
             foreach (var item in mycollection)
             {

@@ -5,17 +5,11 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Core", "LogFileParser.Core\LogFileParser.Core.csproj", "{46F3A2F4-E2CF-4AF6-9A2F-B6273582184D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Core.Tests", "LogFileParser.Core.Tests\LogFileParser.Core.Tests.csproj", "{6721B2AC-5C55-4421-B40E-06F8DB20D86A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Client", "LogFileParser.Client\LogFileParser.Client.csproj", "{E5588BB3-5991-40E7-96BE-37026E28DFF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Common", "LogFileParser.Common\LogFileParser.Common.csproj", "{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample-Log-Files", "Sample-Log-Files", "{9461ADFD-22FC-43F1-B12C-5BA18C66B451}"
-	ProjectSection(SolutionItems) = preProject
-		Sample-logs\IIS.log = Sample-logs\IIS.log
-		Sample-logs\W3C.txt = Sample-logs\W3C.txt
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogFileParser.Core.Tests", "LogFileParser.Core.Tests\LogFileParser.Core.Tests.csproj", "{6AFD9AF7-A852-4C02-B207-8E6F5336783E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +21,6 @@ Global
 		{46F3A2F4-E2CF-4AF6-9A2F-B6273582184D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46F3A2F4-E2CF-4AF6-9A2F-B6273582184D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46F3A2F4-E2CF-4AF6-9A2F-B6273582184D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6721B2AC-5C55-4421-B40E-06F8DB20D86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6721B2AC-5C55-4421-B40E-06F8DB20D86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6721B2AC-5C55-4421-B40E-06F8DB20D86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6721B2AC-5C55-4421-B40E-06F8DB20D86A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5588BB3-5991-40E7-96BE-37026E28DFF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5588BB3-5991-40E7-96BE-37026E28DFF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5588BB3-5991-40E7-96BE-37026E28DFF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +29,10 @@ Global
 		{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AFD9AF7-A852-4C02-B207-8E6F5336783E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AFD9AF7-A852-4C02-B207-8E6F5336783E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AFD9AF7-A852-4C02-B207-8E6F5336783E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AFD9AF7-A852-4C02-B207-8E6F5336783E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

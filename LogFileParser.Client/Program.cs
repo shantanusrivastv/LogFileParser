@@ -11,10 +11,10 @@ namespace LogFileParser.Client
     {
         private static void Main(string[] args)
         {
-            FileParser<W3C> fileParser = new FileParser<W3C>();
-            var mycollection = fileParser.GetAllLogsAsync().Result;
-            ShowAllValues(mycollection);
-            ShowWithGrouping(mycollection);
+            var fileParser = new FileParser<W3C>();
+            var logResults = fileParser.GetAllLogsAsync().Result;
+            //ShowAllValues(logResults);
+            //ShowWithGrouping(logResults);
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
         }

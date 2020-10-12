@@ -1,51 +1,51 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
-using LogFileParser.Common;
-using LogFileParser.Common.LogFormats;
 using LogFileParser.Core;
+using LogFileParser.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace LogFileParser.Client
 {
     internal class Program
     {
+        private static ServiceProvider _serviceProvider;
+
         private static void Main(string[] args)
         {
-            string testPath = @"D:\VS\LogFileParser\Sample-logs\W3CLogFormat.txt";
-            var fileParser = new FileParser<W3CLogFormat>();
-            var logResults = fileParser.GetAllLogsAsync(testPath).Result;
-            //ShowAllValues(logResults);
-            //ShowWithGrouping(logResults);
+            RegisterServices();
+            IServiceScope scope = _serviceProvider.CreateScope();
+            scope.ServiceProvider.GetRequiredService<ConsoleW3CLogViewer>().Run();
+            DisposeServices();
             Console.WriteLine("Operation Ended, press any key to close the windows");
             Console.ReadKey();
         }
 
-        private static void ShowWithGrouping(ConcurrentBag<W3CLogFormat> mycollection)
+        private static void RegisterServices()
         {
-            var groupedCollection = mycollection.GroupBy(x => x.ClientIpAddress)
-                                   .Select(g => new
-                                   {
-                                       key = g.Key,
-                                       count = g.Count()
-                                   })
-                                   .OrderByDescending(y => y.count);
+            var services = new ServiceCollection();
+            services.AddTransient<ILogParser, LogParser>();
+            services.AddTransient(typeof(IFileParser<>), typeof(FileParser<>));
 
-            foreach (var item in groupedCollection)
+            services.AddLogging(cfg =>
             {
-                Console.WriteLine($"The server IP is {item.key}, no of hits are {item.count}  ");
-            }
+                cfg.ClearProviders();
+                cfg.AddConsole();
+                cfg.SetMinimumLevel(LogLevel.Information);
+            });
+
+            services.AddTransient<ConsoleW3CLogViewer>();
+            _serviceProvider = services.BuildServiceProvider(true);
         }
 
-        private static void ShowAllValues(ConcurrentBag<W3CLogFormat> mycollection)
+        private static void DisposeServices()
         {
-            foreach (var item in mycollection)
+            if (_serviceProvider == null)
             {
-                Console.WriteLine($"Printing for {item.ServerIpAddress}");
-                foreach (var p in item.GetType().GetFields())
-                {
-                    Console.Write(p.Name + " : " + p.GetValue(item));
-                    Console.WriteLine();
-                }
+                return;
+            }
+            if (_serviceProvider is IDisposable disposable)
+            {
+                disposable.Dispose();
             }
         }
     }

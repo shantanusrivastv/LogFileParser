@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using LogFileParser.Common.LogFormats;
-using System.Linq;
+using LogFileParser.Core.Interfaces;
 
 namespace LogFileParser.Core
 {
-    public class FileParser<TLogFileFormat> where TLogFileFormat : class, new()
+    public class FileParser<TLogFileFormat> : IFileParser<TLogFileFormat> where TLogFileFormat : class, new()
     {
         private readonly ILogParser _logParser;
 
-        public FileParser()
+        public FileParser(ILogParser logParser)
         {
-            _logParser = new LogParser();
+            _logParser = logParser;
         }
 
         public async Task<ConcurrentBag<TLogFileFormat>> GetAllLogsAsync(string path)

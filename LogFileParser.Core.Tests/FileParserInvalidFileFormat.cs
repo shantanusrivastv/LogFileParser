@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogFileParser.Common.LogFormats;
 using NUnit.Framework;
 
 namespace LogFileParser.Core.Tests
@@ -16,7 +11,7 @@ namespace LogFileParser.Core.Tests
         [SetUp]
         public void Setup()
         {
-            _sut = new FileParser<object>();
+            _sut = new FileParser<object>(new LogParser());
         }
 
         [Test]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using LogFileParser.Core.Interfaces;
 
 namespace LogFileParser.Core
 {

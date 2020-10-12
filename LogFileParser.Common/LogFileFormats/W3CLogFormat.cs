@@ -25,5 +25,6 @@ namespace LogFileParser.Common.LogFileFormats
         public ushort StatusCode;
 
         public string UserAgent;
+
     }
 }

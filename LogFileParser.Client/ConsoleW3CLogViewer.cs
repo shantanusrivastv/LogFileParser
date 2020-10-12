@@ -9,7 +9,7 @@ namespace LogFileParser.Client
 {
     public class ConsoleW3CLogViewer
     {
-        private readonly string samplePath = Environment.CurrentDirectory + "\\W3C.log";
+        private readonly string _samplePath = Environment.CurrentDirectory + "\\W3C.log";
 
         private readonly IFileParser<W3CLogFormat> _fileParser;
         private readonly ILogger<ConsoleW3CLogViewer> _logger;
@@ -23,15 +23,15 @@ namespace LogFileParser.Client
         public void Run()
         {
             _logger.LogInformation("Starting Log Parsing");
-            var logResults = _fileParser.GetAllLogsAsync(samplePath).Result;
+            var logResults = _fileParser.GetAllLogsAsync(_samplePath).Result;
             _logger.LogInformation("Parsing Completed");
             ShowAllValues(logResults);
             ShowWithGrouping(logResults);
         }
 
-        private static void ShowWithGrouping(ConcurrentBag<W3CLogFormat> mycollection)
+        private static void ShowWithGrouping(ConcurrentBag<W3CLogFormat> logResults)
         {
-            var groupedCollection = mycollection.GroupBy(x => x.ClientIpAddress)
+            var groupedCollection = logResults.GroupBy(x => x.ClientIpAddress)
                                    .Select(g => new
                                    {
                                        key = g.Key,
@@ -45,9 +45,9 @@ namespace LogFileParser.Client
             }
         }
 
-        private static void ShowAllValues(ConcurrentBag<W3CLogFormat> mycollection)
+        private static void ShowAllValues(ConcurrentBag<W3CLogFormat> logResults)
         {
-            foreach (var item in mycollection)
+            foreach (var item in logResults)
             {
                 Console.WriteLine($"Printing for {item.ServerIpAddress}");
                 foreach (var p in item.GetType().GetFields())

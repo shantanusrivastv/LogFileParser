@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace LogFileParser.Client
 {
-    internal class Program
+    internal static class Program
     {
         private static ServiceProvider _serviceProvider;
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             RegisterServices();
-            IServiceScope scope = _serviceProvider.CreateScope();
+            var scope = _serviceProvider.CreateScope();
             scope.ServiceProvider.GetRequiredService<ConsoleW3CLogViewer>().Run();
             DisposeServices();
             Console.WriteLine("Operation Ended, press any key to close the windows");

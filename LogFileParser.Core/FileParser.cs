@@ -23,7 +23,7 @@ namespace LogFileParser.Core
             var allLogs = await File.ReadAllLinesAsync(path);
             Parallel.ForEach(allLogs, log =>
             {
-                if (!log.StartsWith("#"))
+                if (!log.StartsWith("#")) //Ignoring Commented lines
                 {
                     var fields = GetLogFields(log);
                     var parsedLog = _logParser.TryParse<TLogFileFormat>(fields);
@@ -34,7 +34,7 @@ namespace LogFileParser.Core
             return threadSafeCollection;
         }
 
-        private string[] GetLogFields(string log)
+        private static string[] GetLogFields(string log)
         {
             switch (typeof(TLogFileFormat))
             {

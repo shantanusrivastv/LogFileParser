@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace LogFileParser.Core.Tests
@@ -21,10 +22,10 @@ namespace LogFileParser.Core.Tests
             string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C.log";
 
             //Act
-            AsyncTestDelegate testDelegate = () => _sut.GetAllLogsAsync(path);
+            Task AsyncTestDelegate() => _sut.GetAllLogsAsync(path);
 
             //Assert
-            var aggregateException = Assert.ThrowsAsync<AggregateException>(testDelegate);
+            var aggregateException = Assert.ThrowsAsync<AggregateException>(AsyncTestDelegate);
             var innerException = aggregateException.InnerExceptions
                                         .FirstOrDefault();
 

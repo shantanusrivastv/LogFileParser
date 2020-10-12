@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LogFileParser.Common.LogFormats;
+using LogFileParser.Common.LogFileFormats;
 using LogFileParser.Core.Interfaces;
 
 namespace LogFileParser.Core
@@ -21,7 +21,7 @@ namespace LogFileParser.Core
         {
             var threadSafeCollection = new ConcurrentBag<TLogFileFormat>();
             var allLogs = await File.ReadAllLinesAsync(path);
-            Parallel.ForEach(allLogs, (log) =>
+            Parallel.ForEach(allLogs, log =>
             {
                 if (!log.StartsWith("#"))
                 {
@@ -38,7 +38,7 @@ namespace LogFileParser.Core
         {
             switch (typeof(TLogFileFormat))
             {
-                case { } format when (format == typeof(W3CLogFormat) || format == typeof(W3Cv1LogFormat)):
+                case { } format when format == typeof(W3CLogFormat) || format == typeof(W3Cv1LogFormat):
                     return log.Split();
 
                 case { } format when format == typeof(IISLogFormat):

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using LogFileParser.Common.LogFormats;
+using LogFileParser.Common.LogFileFormats;
 using NUnit.Framework;
 
 namespace LogFileParser.Core.Tests
@@ -19,7 +19,7 @@ namespace LogFileParser.Core.Tests
         public async Task Should_Read_And_Parse_W3C_Logs_Async()
         {
             //Arrange
-            string path = (TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C.log");
+            string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C.log";
 
             //Act
             var result = await _sut.GetAllLogsAsync(path);
@@ -32,13 +32,13 @@ namespace LogFileParser.Core.Tests
         public void Should_Throw_Exception_When_Invalid_File_Path_Is_Passed()
         {
             //Arrange
-            string noExisitingPath = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C1.log";
+            string nonExistingPath = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C1.log";
 
             //Act
-            AsyncTestDelegate testDelegate = () => _sut.GetAllLogsAsync(noExisitingPath);
+            Task AsyncTestDelegate() => _sut.GetAllLogsAsync(nonExistingPath);
 
             //Assert
-            Assert.ThrowsAsync<FileNotFoundException>(testDelegate);
+            Assert.ThrowsAsync<FileNotFoundException>(AsyncTestDelegate);
         }
     }
 }

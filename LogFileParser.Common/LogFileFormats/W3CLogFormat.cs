@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogFileParser.Common.LogFormats
+namespace LogFileParser.Common.LogFileFormats
 {
     public class W3CLogFormat
     {

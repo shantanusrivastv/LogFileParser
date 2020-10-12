@@ -18,11 +18,9 @@ namespace LogFileParser.Core
                 var converter = TypeDescriptor.GetConverter(TypeFields[i].FieldType);
                 bool canConvert = converter.CanConvertFrom(logFields[i].GetType());
 
-                if (canConvert)
-                {
-                    var convertedValue = converter.ConvertFrom(logFields[i]);
-                    TypeFields[i].SetValue(instance, convertedValue);
-                }
+                if (!canConvert) continue;
+                var convertedValue = converter.ConvertFrom(logFields[i]);
+                TypeFields[i].SetValue(instance, convertedValue);
             }
             return instance;
         }

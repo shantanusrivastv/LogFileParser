@@ -39,14 +39,12 @@ namespace LogFileParser.Client
 
         private static void DisposeServices()
         {
-            if (_serviceProvider == null)
-            {
-                return;
-            }
-            if (_serviceProvider is IDisposable disposable)
+
+            if (_serviceProvider is IDisposable disposable && _serviceProvider != null)
             {
                 disposable.Dispose();
             }
+
         }
     }
 }

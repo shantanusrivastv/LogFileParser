@@ -1,5 +1,5 @@
 using System;
-using LogFileParser.Common.LogFormats;
+using LogFileParser.Common.LogFileFormats;
 using NUnit.Framework;
 
 namespace LogFileParser.Core.Tests

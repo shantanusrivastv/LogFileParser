@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using LogFileParser.Common.LogFormats;
+using LogFileParser.Common.LogFileFormats;
 using LogFileParser.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 

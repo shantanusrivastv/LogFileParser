@@ -5,7 +5,7 @@ using LogFileParser.Common;
 using LogFileParser.Common.LogFormats;
 using LogFileParser.Core;
 
-namespace LogFileParser.ConsoleUI
+namespace LogFileParser.Client
 {
     internal class Program
     {

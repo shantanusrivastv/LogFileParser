@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Core", "LogFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Core.Tests", "LogFileParser.Core.Tests\LogFileParser.Core.Tests.csproj", "{6721B2AC-5C55-4421-B40E-06F8DB20D86A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.ConsoleUI", "LogFileParser.ConsoleUI\LogFileParser.ConsoleUI.csproj", "{E5588BB3-5991-40E7-96BE-37026E28DFF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Client", "LogFileParser.Client\LogFileParser.Client.csproj", "{E5588BB3-5991-40E7-96BE-37026E28DFF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogFileParser.Common", "LogFileParser.Common\LogFileParser.Common.csproj", "{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogFileParser.Common", "LogFileParser.Common\LogFileParser.Common.csproj", "{7D8BD7E6-2835-4E7C-8F0E-DFC8EEBFD921}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

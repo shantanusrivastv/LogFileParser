@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogFileParser.Common.Models
+namespace LogFileParser.Common.LogFormats
 {
     public class W3Cv1dot1
     {

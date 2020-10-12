@@ -7,25 +7,25 @@ using System.Linq;
 
 namespace LogFileParser.Core
 {
-    public class FileParser<LogFileFormat> where LogFileFormat : class, new()
+    public class FileParser<TLogFileFormat> where TLogFileFormat : class, new()
     {
-        private Parser parser;
+        private readonly ILogParser _logParser;
 
         public FileParser()
         {
-            parser = new Parser();
+            _logParser = new LogParser();
         }
 
-        public async Task<ConcurrentBag<LogFileFormat>> GetAllLogsAsync(string path)
+        public async Task<ConcurrentBag<TLogFileFormat>> GetAllLogsAsync(string path)
         {
-            var threadSafeCollection = new ConcurrentBag<LogFileFormat>();
+            var threadSafeCollection = new ConcurrentBag<TLogFileFormat>();
             var allLogs = await File.ReadAllLinesAsync(path);
             Parallel.ForEach(allLogs, (log) =>
             {
                 if (!log.StartsWith("#"))
                 {
                     var fields = GetLogFields(log);
-                    var parsedLog = parser.TryParse<LogFileFormat>(fields);
+                    var parsedLog = _logParser.TryParse<TLogFileFormat>(fields);
                     threadSafeCollection.Add(parsedLog);
                 }
             });
@@ -35,13 +35,13 @@ namespace LogFileParser.Core
 
         private string[] GetLogFields(string log)
         {
-            switch (typeof(LogFileFormat))
+            switch (typeof(TLogFileFormat))
             {
-                case Type format when (format == typeof(W3CLogFormat) || format == typeof(W3Cv1LogFormat)):
+                case { } format when (format == typeof(W3CLogFormat) || format == typeof(W3Cv1LogFormat)):
                     return log.Split();
 
-                case Type format when format == typeof(IISLogFormat):
-                    return log.Split(",").SkipLast(1).ToArray(); //For IISLogFormat Log last element ends with comma
+                case { } format when format == typeof(IISLogFormat):
+                    return log.Split(",").SkipLast(1).ToArray(); //For IISLogFormat last element ends with comma
 
                 default:
                     throw new ArgumentException("Unsupported Type");

@@ -6,12 +6,12 @@ namespace LogFileParser.Core.Tests
 {
     public class ParserTest
     {
-        private Parser _sut;
+        private LogParser _sut;
 
         [SetUp]
         public void Setup()
         {
-            _sut = new Parser();
+            _sut = new LogParser();
         }
 
         [Test]

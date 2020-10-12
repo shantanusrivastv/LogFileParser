@@ -14,7 +14,7 @@ namespace LogFileParser.Core
             var instance = new T();
             var typeFields = typeof(T).GetFields();
 
-            if (typeFields.Length != logFields.Length) throw new InvalidOperationException (InvalidOperationMessage);
+            if (typeFields.Length != logFields.Length) throw new InvalidOperationException(InvalidOperationMessage);
 
             for (int i = 0; i < logFields.Length; i++)
             {
@@ -35,7 +35,7 @@ namespace LogFileParser.Core
             var instance = new T();
             var typeFields = typeof(T).GetFields();
 
-            if (typeFields.Length != logFields.Length) throw new InvalidOperationException (InvalidOperationMessage);
+            if (typeFields.Length != logFields.Length) throw new InvalidOperationException(InvalidOperationMessage);
 
             for (int i = 0; i < logFields.Length; i++)
             {

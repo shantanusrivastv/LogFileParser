@@ -5,8 +5,8 @@ namespace LogFileParser.Client
 {
     public interface ILogViewer
     {
-        void DisplayWithGrouping<TFileFormat, TKey>(ConcurrentBag<TFileFormat> logResults, Func<TFileFormat, TKey> keySelector);
+        void DisplayWithGrouping<TLogFileFormat, TKey>(ConcurrentBag<TLogFileFormat> logResults, Func<TLogFileFormat, TKey> keySelector);
 
-        void DisplayWithFilters<TFileFormat>(ConcurrentBag<TFileFormat> logResults, Func<TFileFormat, bool> predicate);
+        void DisplayWithFilters<TLogFileFormat>(ConcurrentBag<TLogFileFormat> logResults, Func<TLogFileFormat, bool> predicate);
     }
 }

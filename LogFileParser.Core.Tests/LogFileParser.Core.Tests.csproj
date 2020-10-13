@@ -23,6 +23,9 @@
     <None Update="Sample-logs\W3C\W3C.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Sample-logs\W3Cv1\W3Cv1.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

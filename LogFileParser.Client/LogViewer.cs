@@ -6,8 +6,8 @@ namespace LogFileParser.Client
 {
     public class LogViewer : ILogViewer
     {
-        public void DisplayWithGrouping<TFileFormat, TKey>(ConcurrentBag<TFileFormat> logResults,
-                                        Func<TFileFormat, TKey> keySelector)
+        public void DisplayWithGrouping<TLogFileFormat, TKey>(ConcurrentBag<TLogFileFormat> logResults,
+                                        Func<TLogFileFormat, TKey> keySelector)
         {
             var groupedCollection = logResults.GroupBy(keySelector)
                                                .Select(g => new
@@ -31,15 +31,15 @@ namespace LogFileParser.Client
             Console.WriteLine(Environment.NewLine + "Showing Filtered Result :" + Environment.NewLine);
             foreach (var item in filteredResult)
             {
-                foreach (var p in item.GetType().GetFields())
+                foreach (var field in item.GetType().GetFields())
                 {
-                    if (p.FieldType == typeof(DateTime))
+                    if (field.FieldType == typeof(DateTime))
                     {
-                        var onlyDateValue = ((DateTime)p.GetValue(item)).ToShortDateString();
-                        Console.WriteLine(p.Name + " : " + onlyDateValue);
+                        var onlyDateValue = ((DateTime)field.GetValue(item)).ToShortDateString();
+                        Console.WriteLine(field.Name + " : " + onlyDateValue);
                         continue;
                     }
-                    Console.Write(p.Name + " : " + p.GetValue(item));
+                    Console.Write(field.Name + " : " + field.GetValue(item));
                     Console.WriteLine();
                 }
 

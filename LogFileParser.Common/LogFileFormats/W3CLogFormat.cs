@@ -2,7 +2,7 @@
 
 namespace LogFileParser.Common.LogFileFormats
 {
-    public class W3CLogFormat
+    public class W3CLogFormat : ILogFormat
     {
         public DateTime Date;
 

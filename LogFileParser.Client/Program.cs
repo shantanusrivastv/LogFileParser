@@ -17,7 +17,7 @@ namespace LogFileParser.Client
         {
             RegisterServices();
             var scope = _serviceProvider.CreateScope();
-            await scope.ServiceProvider.GetRequiredService<W3CLogClient>().Start();
+            await scope.ServiceProvider.GetRequiredService<W3CLogClient>().StartAsync();
             DisposeServices();
             Console.WriteLine(Environment.NewLine + "Operation Ended, press any key to close the windows");
             Console.ReadKey();

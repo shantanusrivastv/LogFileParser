@@ -2,7 +2,7 @@
 
 namespace LogFileParser.Common.LogFileFormats
 {
-    public class IISLogFormat
+    public class IISLogFormat : ILogFormat
     {
         public string ClientIpAddress;
 

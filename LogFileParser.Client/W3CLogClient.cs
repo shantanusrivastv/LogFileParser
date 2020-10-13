@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
 using LogFileParser.Common.LogFileFormats;
 using LogFileParser.Core.Interfaces;
@@ -27,7 +26,7 @@ namespace LogFileParser.Client
             _viewer = viewer;
         }
 
-        public async Task Start()
+        public async Task StartAsync()
         {
             _logger.LogInformation("Starting Log Parsing");
             ConcurrentBag<W3CLogFormat> logResults;
@@ -69,7 +68,7 @@ namespace LogFileParser.Client
             _viewer.DisplayWithGrouping(logResults, userAgentGrouping);
 
             //Sample Filtering Results
-            _viewer.DisplayWithFilters(logResults, x => x.Date >= DateTime.Now.AddYears(-4));
+            _viewer.DisplayWithFilters(logResults, x => x.Date >= DateTime.Now.AddYears(-1)); //within a year
         }
     }
 }

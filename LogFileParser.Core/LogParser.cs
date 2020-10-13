@@ -9,10 +9,10 @@ namespace LogFileParser.Core
         //private static FieldInfo[] TypeFields; todo use this to create once and reuse for each instance
         private const string InvalidOperationMessage = "Invalid Log file Format selected for this operation";
 
-        public T Parse<T>(params string[] logFields) where T : class, new()
+        public TLogFileFormat Parse<TLogFileFormat>(params string[] logFields) where TLogFileFormat : class, new()
         {
-            var instance = new T();
-            var typeFields = typeof(T).GetFields();
+            var instance = new TLogFileFormat();
+            var typeFields = typeof(TLogFileFormat).GetFields();
 
             if (typeFields.Length != logFields.Length) throw new InvalidOperationException(InvalidOperationMessage);
 

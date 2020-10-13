@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using LogFileParser.Core;
 using LogFileParser.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -10,11 +13,11 @@ namespace LogFileParser.Client
     {
         private static ServiceProvider _serviceProvider;
 
-        private static void Main()
+        private static async Task Main()
         {
             RegisterServices();
             var scope = _serviceProvider.CreateScope();
-            scope.ServiceProvider.GetRequiredService<ConsoleW3CLogViewer>().Run();
+            await scope.ServiceProvider.GetRequiredService<W3CLogClient>().Start();
             DisposeServices();
             Console.WriteLine(Environment.NewLine + "Operation Ended, press any key to close the windows");
             Console.ReadKey();
@@ -34,7 +37,14 @@ namespace LogFileParser.Client
                 cfg.SetMinimumLevel(LogLevel.Information);
             });
 
-            services.AddTransient<ConsoleW3CLogViewer>();
+            // Build configuration
+            IConfiguration configuration = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                        .AddJsonFile("appsettings.json", true)
+                        .Build();
+
+            services.AddSingleton(configuration);
+            services.AddTransient<W3CLogClient>();
             _serviceProvider = services.BuildServiceProvider(true);
         }
 

@@ -20,17 +20,19 @@ namespace LogFileParser.Core
         public async Task<ConcurrentBag<TLogFileFormat>> GetAllLogsAsync(string path)
         {
             var threadSafeCollection = new ConcurrentBag<TLogFileFormat>();
-            var allLogs = await File.ReadAllLinesAsync(path);
-            Parallel.ForEach(allLogs, log =>
+            foreach (var files in Directory.GetFiles(path, "*.log", SearchOption.AllDirectories))
             {
-                if (!log.StartsWith("#")) //Ignoring Commented lines
+                var allLogs = await File.ReadAllLinesAsync(files);
+                Parallel.ForEach(allLogs, log =>
                 {
-                    var fields = GetLogFields(log);
-                    var parsedLog = _logParser.TryParse<TLogFileFormat>(fields);
-                    threadSafeCollection.Add(parsedLog);
-                }
-            });
-
+                    if (!log.StartsWith("#")) //Ignoring Commented lines
+                    {
+                        var fields = GetLogFields(log);
+                        var parsedLog = _logParser.TryParse<TLogFileFormat>(fields);
+                        threadSafeCollection.Add(parsedLog);
+                    }
+                });
+            }
             return threadSafeCollection;
         }
 

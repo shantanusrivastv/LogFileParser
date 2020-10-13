@@ -19,7 +19,7 @@ namespace LogFileParser.Core.Tests
         public void Should_Throw_Exception_When_Invalid_File_Format_Is_Passed()
         {
             //Arrange
-            string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C.log";
+            string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C";
 
             //Act
             Task AsyncTestDelegate() => _sut.GetAllLogsAsync(path);

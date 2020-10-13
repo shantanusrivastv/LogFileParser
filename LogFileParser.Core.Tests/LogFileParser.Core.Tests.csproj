@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Sample-logs\IIS.log">
+    <None Update="Sample-logs\IIS\IIS.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Sample-logs\W3C.log">
+    <None Update="Sample-logs\W3C\W3C.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

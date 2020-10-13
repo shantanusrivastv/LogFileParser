@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogFileParser.Client
 {
@@ -47,7 +43,7 @@ namespace LogFileParser.Client
                     Console.WriteLine();
                 }
 
-                Console.Write("---------Next Record----------------");
+                Console.Write("---------Next Record----------------" + Environment.NewLine);
             }
         }
     }

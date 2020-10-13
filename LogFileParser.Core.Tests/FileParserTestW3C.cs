@@ -19,7 +19,7 @@ namespace LogFileParser.Core.Tests
         public async Task Should_Read_And_Parse_W3C_Logs_Async()
         {
             //Arrange
-            string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C.log";
+            string path = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C";
 
             //Act
             var result = await _sut.GetAllLogsAsync(path);
@@ -32,13 +32,13 @@ namespace LogFileParser.Core.Tests
         public void Should_Throw_Exception_When_Invalid_File_Path_Is_Passed()
         {
             //Arrange
-            string nonExistingPath = TestContext.CurrentContext.TestDirectory + "\\Sample-logs\\W3C1.log";
+            string nonExistingPath = TestContext.CurrentContext.TestDirectory + "\\Sample-logs2\\W3C.log";
 
             //Act
             Task AsyncTestDelegate() => _sut.GetAllLogsAsync(nonExistingPath);
 
             //Assert
-            Assert.ThrowsAsync<FileNotFoundException>(AsyncTestDelegate);
+            Assert.ThrowsAsync<DirectoryNotFoundException>(AsyncTestDelegate);
         }
     }
 }

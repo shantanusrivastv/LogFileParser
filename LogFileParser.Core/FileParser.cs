@@ -36,7 +36,7 @@ namespace LogFileParser.Core
             return threadSafeCollection;
         }
 
-        //Spliting Logic can be different for Log Files
+        //Splitting Logic can be different for Log Files
         private static string[] GetLogFields(string log)
         {
             switch (typeof(TLogFileFormat))

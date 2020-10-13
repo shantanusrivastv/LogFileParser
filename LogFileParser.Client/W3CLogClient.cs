@@ -41,7 +41,7 @@ namespace LogFileParser.Client
             {
                 foreach (var e in ae.InnerExceptions)
                 {
-                    _logger.LogError("Error while excuting Parsing Task ", e.Message);
+                    _logger.LogError("Error while executing Parsing Task ", e.Message);
                 }
                 return; //Exiting
             }
@@ -53,12 +53,12 @@ namespace LogFileParser.Client
             }
             _logger.LogInformation("Parsing Completed");
 
-            //Sampple Grouping Filters
-            Func<W3CLogFormat, string> UrlGrouping = (x) => x.UriStem; //Main requirement
-            Func<W3CLogFormat, string> clientIPGrouping = (x) => x.ClientIpAddress;
-            Func<W3CLogFormat, string> serverIPGrouping = (x) => x.ServerIpAddress;
-            Func<W3CLogFormat, int> statusCodeGrouping = (x) => x.StatusCode;
-            Func<W3CLogFormat, string> userAgentGrouping = (x) => x.UserAgent;
+            //Sample Grouping Filters
+            Func<W3CLogFormat, string> UrlGrouping = x => x.UriStem; //Main requirement
+            Func<W3CLogFormat, string> clientIPGrouping = x => x.ClientIpAddress;
+            Func<W3CLogFormat, string> serverIPGrouping = x => x.ServerIpAddress;
+            Func<W3CLogFormat, int> statusCodeGrouping = x => x.StatusCode;
+            Func<W3CLogFormat, string> userAgentGrouping = x => x.UserAgent;
 
             //Sample Grouping Results based on above filters
             _viewer.DisplayWithGrouping(logResults, UrlGrouping);

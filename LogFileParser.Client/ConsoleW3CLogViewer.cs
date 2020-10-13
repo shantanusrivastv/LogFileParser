@@ -27,6 +27,35 @@ namespace LogFileParser.Client
             _logger.LogInformation("Parsing Completed");
             ShowAllValues(logResults);
             ShowWithGrouping(logResults);
+
+            Console.Clear();
+            Func<W3CLogFormat, string> keySelector = (x) => x.ClientIpAddress;
+            Func<W3CLogFormat, string> keySelector1 = (x) => x.ServerIpAddress;
+            Func<W3CLogFormat, int> keySelector2 = (x) => x.StatusCode;
+            Func<W3CLogFormat, string> keySelector3 = (x) => x.UserAgent;
+
+            DisplayWithGrouping(logResults, keySelector);
+            DisplayWithGrouping(logResults, keySelector1);
+            DisplayWithGrouping(logResults, keySelector2);
+            DisplayWithGrouping(logResults, keySelector3);
+        }
+
+        private static void DisplayWithGrouping<TKey>(ConcurrentBag<W3CLogFormat> logResults,
+                                                Func<W3CLogFormat, TKey> keySelector)
+        {
+            var groupedCollection = logResults.GroupBy(keySelector)
+                                               .Select(g => new
+                                               {
+                                                   key = g.Key,
+                                                   count = g.Count()
+                                               })
+                                   .OrderByDescending(y => y.count);
+
+            foreach (var item in groupedCollection)
+            {
+                Console.WriteLine($"The grouping key is {item.key}," +
+                                   $" total count {(item.count > 1 ? "are" : "is")}  {item.count}");
+            }
         }
 
         private static void ShowWithGrouping(ConcurrentBag<W3CLogFormat> logResults)

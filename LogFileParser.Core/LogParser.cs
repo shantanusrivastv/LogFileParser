@@ -60,7 +60,7 @@ namespace LogFileParser.Core
                 else
                 {
                     //TypeFields[i].SetValue(instance, Convert.ChangeType(logFields[i], targetType));//For future reference
-                    typeFields[i].SetValue(instance, logFields[i]); //For our current data type it will be string
+                    typeFields[i].SetValue(instance, logFields[i]); //For our current data type it will be string, so simple assignment
                 }
             }
             return instance;
